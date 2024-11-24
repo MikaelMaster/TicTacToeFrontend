@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosRequestConfig } from "axios";
 
 /**
  * Axios client instance configured with the base URL from the environment variable `BACKEND_URL`.
@@ -13,12 +13,21 @@ const client = axios.create({
     }
 });
 
+interface AxiosRequestMetadata {
+    startTime?: Date;
+}
+
+interface CustomAxiosConfig extends AxiosRequestConfig {
+    metadata?: AxiosRequestMetadata;
+}
+
 /**
  * Interceptor to add a delay to the response of each request if the request duration is less than 250ms.
  * This is necessary so frontend loaders animations are not too fast and do not flicker.
  */
 client.interceptors.response.use(response => {
-    const startTime = (response.config as any).metadata?.startTime || new Date();
+    const config = response.config as CustomAxiosConfig;
+    const startTime = config.metadata?.startTime || new Date();
     const endTime = new Date();
 
     const requestDuration = endTime.getTime() - startTime.getTime();
@@ -28,9 +37,8 @@ client.interceptors.response.use(response => {
         setTimeout(() => resolve(response), delay);
     });
 }, error => {
-    const status = error?.response?.status ?? null;
-
-    const startTime = (error.config as any).metadata?.startTime || new Date();
+    const config = error.config as CustomAxiosConfig;
+    const startTime = config.metadata?.startTime || new Date();
     const endTime = new Date();
 
     const requestDuration = endTime.getTime() - startTime.getTime();

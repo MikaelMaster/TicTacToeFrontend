@@ -1,9 +1,9 @@
-'use client';
+'use client'
 
-import { useState } from "react";
+import { useState } from "react"
 
 export function JoinGameContent() {
-    const [option, setOption] = useState<"random" | "choose">("random");
+    const [option, setOption] = useState<"random" | "choose">("random")
 
     return (
         <div className="flex flex-col items-center justify-center h-screen bg-[#1a1a2e] text-white">
@@ -54,5 +54,5 @@ export function JoinGameContent() {
                 )}
             </div>
         </div>
-    );
+    )
 }

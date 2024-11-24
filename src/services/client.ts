@@ -1,4 +1,4 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
 /**
  * Axios client instance configured with the base URL from the environment variable `BACKEND_URL`.

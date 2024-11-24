@@ -7,6 +7,8 @@ import { IoLanguage } from 'react-icons/io5';
 import Flag from 'react-world-flags';
 import '../../../../i18n';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
+import Box from '@mui/material/Box';
+import Slider from '@mui/material/Slider';
 
 export function JoinGameContent() {
     const { t, i18n } = useTranslation();
@@ -26,9 +28,9 @@ export function JoinGameContent() {
         setLoading(true);
 
         setTimeout(() => {
-            setPlayingCount(100);
+            setPlayingCount(Math.random() * 100);
             setLoading(false);
-        }, 2000);
+        }, 100);
     }, []);
 
     return (
@@ -82,31 +84,45 @@ export function JoinGameContent() {
                         </AnimatePresence>
                     </div>
 
-                    {/* Título */}
                     <h1 className="text-4xl font-bold text-[#00aaff] mb-8">{t("title")}</h1>
 
-                    {/* Botões de opção */}
-                    <div className="relative flex items-center justify-between w-64 bg-gray-700 rounded-full p-1">
-                        <button
-                            className={`w-1/2 text-center py-2 rounded-full transition ${joinOption === "RANDOM" ? "bg-[#00aaff] text-[#1a1a2e]" : "text-white"
-                                }`}
-                            onClick={() => setJoinOption("RANDOM")}
+                    <AnimatePresence>
+                        <motion.div
+                            className="relative flex items-center justify-between w-[450px] bg-gray-700 rounded-full p-1"
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -10 }}
+                            transition={{ duration: 0.2 }}
                         >
-                            {t("random_match")}
-                        </button>
-                        <button
-                            className={`w-1/2 text-center py-2 rounded-full transition ${joinOption === "SPECIFY" ? "bg-[#00aaff] text-[#1a1a2e]" : "text-white"
-                                }`}
-                            onClick={() => setJoinOption("SPECIFY")}
-                        >
-                            {t("choose_opponent")}
-                        </button>
-                    </div>
+                            <motion.div
+                                key="random"
+                                className={`w-auto min-w-[150px] text-center py-2 rounded-full cursor-pointer transition text-white ${joinOption === "RANDOM" ? "bg-[#00aaff]" : ""}`}
+                                onClick={() => setJoinOption("RANDOM")}
+                                initial={{ opacity: 0, x: -50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: 50 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                {t("random_match")}
+                            </motion.div>
 
-                    {/* Conteúdo Condicional */}
+                            <motion.div
+                                key="specify"
+                                className={`w-auto min-w-[150px] text-center py-2 rounded-full cursor-pointer transition text-white ${joinOption === "SPECIFY" ? "bg-[#00aaff]" : ""}`}
+                                onClick={() => setJoinOption("SPECIFY")}
+                                initial={{ opacity: 0, x: 50 }}
+                                animate={{ opacity: 1, x: 0 }}
+                                exit={{ opacity: 0, x: -50 }}
+                                transition={{ duration: 0.3 }}
+                            >
+                                {t("choose_opponent")}
+                            </motion.div>
+                        </motion.div>
+                    </AnimatePresence>
+
                     <div className="flex flex-col items-center space-y-4 w-full max-w-sm">
                         {joinOption === "RANDOM" ? (
-                            <button className="w-full py-2 bg-[#00aaff] text-white rounded-md hover:bg-[#0088cc] transition">
+                            <button className="mt-20 w-full py-2 bg-[#00aaff] text-white rounded-md hover:bg-[#0088cc] transition">
                                 {t("quick_match")}
                             </button>
                         ) : (
@@ -114,7 +130,7 @@ export function JoinGameContent() {
                                 <input
                                     type="text"
                                     placeholder={t("enter_opponent_name")}
-                                    className="w-full px-4 py-2 text-black rounded-md border-2 border-[#00aaff] focus:outline-none focus:border-[#00ffcc] transition"
+                                    className="mt-5 w-full px-4 py-2 text-black rounded-md border-2 border-[#00aaff] focus:outline-none focus:border-[#00ffcc] transition"
                                 />
                                 <button className="w-full py-2 bg-[#00aaff] text-white rounded-md hover:bg-[#0088cc] transition">
                                     {t("find_opponent")}
@@ -122,8 +138,9 @@ export function JoinGameContent() {
                             </>
                         )}
                     </div>
-                </div>
-            )}
+                </div >
+            )
+            }
         </>
     );
 }

@@ -1,0 +1,17 @@
+{
+    "loading": "Loading...",
+
+    "title": "Tic-tac-toe",
+    "title_join": "Tic-tac-toe | Join a game",
+    "title_ingame": "Tic-tac-toe | Playing",
+    "title_ended": "Tic-tac-toe | Game results",
+    "description": "Play tic-tac-toe online with your friends!",
+
+    "language": "Language",
+    "random_match": "Random match",
+    "choose_opponent": "Choose an opponent",
+
+    "quick_match": "Quick match",
+    "enter_opponent_name": "Enter the opponent's name",
+    "find_opponent": "Find opponent"
+}

@@ -1,4 +1,4 @@
-import { JoinGameContent } from "@/components/JoinGameContent"
+import { JoinGameContent } from "@/components/contents/join/JoinGameContent"
 
 export default function JoinPage() {
     return (

@@ -1,22 +1,23 @@
-import { Metadata } from "next";
-import { Inter } from "next/font/google";
+'use client';
+
+import { useEffect } from "react";
 import "./globals.css";
-import { Toaster } from "react-hot-toast";
-
-export const metadata: Metadata = {
-    title: "Tic Tac Toe",
-    description: "Play Tic Tac Toe with your friends."
-}
-
-const inter = Inter({ subsets: ["latin"] });
+import "../../i18n";
+import { useTranslation } from "react-i18next";
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+    const { i18n } = useTranslation();
+    
+    useEffect(() => {
+        const savedLanguage = localStorage.getItem('lang');
+        if (savedLanguage) {
+            i18n.changeLanguage(savedLanguage);
+        }
+    }, []);
+
     return (
-        <html lang="en-US">
-            <body className={`${inter.className} bg-[var(--background-1)] min-h-screen`}>
-                <Toaster position="bottom-center" />
-                {children}
-            </body>
+        <html lang="en">
+            {children}
         </html>
-    )
-}
+    );
+};

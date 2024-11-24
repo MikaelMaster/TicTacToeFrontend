@@ -1,0 +1,17 @@
+{
+    "loading": "A véia tá se preparando...",
+
+    "title": "Jogo da Velha",
+    "title_join": "Jogo da Velha | Entrar em uma partida",
+    "title_ingame": "Jogo da Velha | Jogando",
+    "title_ended": "Jogo da Velha | Resultados da partida",
+    "description": "Jogue Jogo da Velha online com seus amigos!",
+
+    "language": "Idioma",
+    "random_match": "Partida aleatória",
+    "choose_opponent": "Escolher adversário",
+
+    "quick_match": "Partida rápida",
+    "enter_opponent_name": "Digite o nome do adversário",
+    "find_opponent": "Encontrar adversário"
+}

@@ -7,8 +7,6 @@ import { IoLanguage } from 'react-icons/io5';
 import Flag from 'react-world-flags';
 import '../../../../i18n';
 import { AiOutlineLoading3Quarters } from 'react-icons/ai';
-import Box from '@mui/material/Box';
-import Slider from '@mui/material/Slider';
 
 export function JoinGameContent() {
     const { t, i18n } = useTranslation();
@@ -22,15 +20,16 @@ export function JoinGameContent() {
     const [loading, setLoading] = useState(true);
 
     const [joinOption, setJoinOption] = useState<'RANDOM' | 'SPECIFY'>('RANDOM');
-    const [playingCount, setPlayingCount] = useState(0);
+    const [playingCount, setPlayingCount] = useState<string | null>(null);
+    const [playerId, setPlayerId] = useState<string | null>(null);
 
     useEffect(() => {
         setLoading(true);
 
         setTimeout(() => {
-            setPlayingCount(Math.random() * 100);
+            setPlayingCount((Math.random() * 100).toFixed(0));
             setLoading(false);
-        }, 100);
+        }, 500);
     }, []);
 
     return (
@@ -84,35 +83,41 @@ export function JoinGameContent() {
                         </AnimatePresence>
                     </div>
 
-                    <h1 className="text-4xl font-bold text-[#00aaff] mb-8">{t("title")}</h1>
+                    <div className='w-full items-center flex flex-col gap-4 mb-10'>
+                        <h1 className="text-4xl font-bold text-[#00aaff]">{t("title")}</h1>
+                        <div className='w-full items-center flex flex-col gap-1'>
+                            <p className='text-xl'>Jogando: <strong>{playingCount}</strong></p>
+                            <p className='text-xl'>Seu ID: <strong>{playerId}</strong></p>
+                        </div>
+                    </div>
 
                     <AnimatePresence>
                         <motion.div
-                            className="relative flex items-center justify-between w-[450px] bg-gray-700 rounded-full p-1"
-                            initial={{ opacity: 0, y: -10 }}
+                            className="overflow-hidden relative flex items-center justify-between w-auto min-w-[450px] bg-gray-700 rounded-full p-1"
+                            initial={{ opacity: 0, y: -15 }}
                             animate={{ opacity: 1, y: 0 }}
-                            exit={{ opacity: 0, y: -10 }}
-                            transition={{ duration: 0.2 }}
+                            exit={{ opacity: 0, y: -15 }}
+                            transition={{ duration: 0.5 }}
                         >
                             <motion.div
                                 key="random"
-                                className={`w-auto min-w-[150px] text-center py-2 rounded-full cursor-pointer transition text-white ${joinOption === "RANDOM" ? "bg-[#00aaff]" : ""}`}
+                                className={`w-auto min-w-[165px] text-center py-2 rounded-full cursor-pointer transition-all duration-500 text-white ${joinOption === "RANDOM" ? "bg-[#00aaff]" : ""}`}
                                 onClick={() => setJoinOption("RANDOM")}
-                                initial={{ opacity: 0, x: -50 }}
+                                initial={{ opacity: 0, x: 20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: 50 }}
+                                exit={{ opacity: 0, x: -20 }}
                                 transition={{ duration: 0.3 }}
                             >
                                 {t("random_match")}
                             </motion.div>
-
+                            
                             <motion.div
                                 key="specify"
-                                className={`w-auto min-w-[150px] text-center py-2 rounded-full cursor-pointer transition text-white ${joinOption === "SPECIFY" ? "bg-[#00aaff]" : ""}`}
+                                className={`w-auto min-w-[165px] text-center py-2 rounded-full cursor-pointer transition-all duration-500 text-white ${joinOption === "SPECIFY" ? "bg-[#00aaff]" : ""}`}
                                 onClick={() => setJoinOption("SPECIFY")}
-                                initial={{ opacity: 0, x: 50 }}
+                                initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
-                                exit={{ opacity: 0, x: -50 }}
+                                exit={{ opacity: 0, x: 20 }}
                                 transition={{ duration: 0.3 }}
                             >
                                 {t("choose_opponent")}
